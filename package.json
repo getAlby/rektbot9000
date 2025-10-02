@@ -1,0 +1,21 @@
+{
+  "name": "rektbot9000",
+  "version": "1.0.0",
+  "description": "Lightning bot that uses MCP to earn money (or get rekt)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "example": "ts-node src/example.ts"
+  },
+  "keywords": ["goose", "child-process", "typescript"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.6.2",
+    "typescript": "^5.9.3",
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {}
+}
