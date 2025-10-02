@@ -7,8 +7,42 @@ import { GooseConfig, GooseError } from "./types";
  * @param config Optional configuration for the goose process
  * @returns Promise resolving to the stdout output as a string
  */
-// TODO: add retries
 export async function runGoose(
+  prompt: string,
+  systemPrompt?: string,
+  config: GooseConfig = {}
+): Promise<string> {
+  const maxRetries = 5;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      if (attempt > 1) {
+        console.log(`Retrying goose (attempt ${attempt}/${maxRetries})...`);
+      }
+
+      const result = await runGooseAttempt(prompt, systemPrompt, config);
+      return result;
+    } catch (error) {
+      if (attempt === maxRetries) {
+        console.error(`Goose failed after ${maxRetries} attempts`);
+        throw error;
+      }
+
+      console.warn(
+        `Goose attempt ${attempt} failed:`,
+        error instanceof Error ? error.message : String(error)
+      );
+    }
+  }
+
+  // This should never be reached due to the throw above, but TypeScript requires it
+  throw new GooseError("Maximum retry attempts exceeded");
+}
+
+/**
+ * Internal function that performs a single goose attempt
+ */
+async function runGooseAttempt(
   prompt: string,
   systemPrompt?: string,
   config: GooseConfig = {}
