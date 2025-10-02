@@ -62,19 +62,39 @@ async function main() {
     );
     console.log("Post balance result:", postBalanceResult);
 
-    // TODO: add some random "mood" for the bot for this trade
-    // TODO: deposit funds on LNMarkets
-    // TODO: read market sentiment and output bullish or bearish
-
     console.log("Possibly topping up the LNMarkets balance");
     const topUpLnmarketsResult = await runGoose(
       `check my LNMarkets balance. If the balance is below 3000 sats, top it up 1000 sats by paying the deposit invoice with my lightning wallet`
     );
-    console.log("Open new trade result:", topUpLnmarketsResult);
+    console.log("Top up LNMarkets balance result:", topUpLnmarketsResult);
 
-    console.log("Opening a new trade");
+    // TODO: add some random "mood" for the bot for this trade
+    // TODO: read market sentiment and output bullish or bearish
+
+    console.log("Checking market sentiment");
+    const marketSentimentResult = await runGoose(
+      `Look at the LNMarkets trading data for the last 15 minutes and analyze if it is bullish or bearish. Output only "bullish" or "bearish".`
+    );
+    console.log("Market sentiment result:", marketSentimentResult);
+
+    const marketSentimentText = marketSentimentResult
+      .split("\n")
+      .filter((l) => l)
+      .filter((_, i, a) => i === a.length - 1)[0]
+      ?.trim();
+
+    if (
+      marketSentimentText !== "bullish" &&
+      marketSentimentText !== "bearish"
+    ) {
+      console.error("Unknown market sentiment", marketSentimentText);
+      return;
+    }
+    const direction = marketSentimentText === "bullish" ? "long" : "short";
+    console.log("Opening a new trade", marketSentimentText, direction);
+
     const openNewTradeResult = await runGoose(
-      `open a 10x long on LNMarkets with quantity 1 and a stop loss 1% lower than the current price and a take profit 1% higher than the current price. Make sure to remember the **Position ID** as the LAST_POSITION_ID. In the output, display the following information: **Position ID**, **Entry Price**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**`
+      `open a 10x ${direction} on LNMarkets with quantity 1 and a stop loss 0.1% lower than the current price and a take profit 0.1% higher than the current price. Make sure to remember the **Position ID** as the LAST_POSITION_ID. In the output, display the following information: **Position ID**, **Entry Price**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**`
     );
     console.log("Open new trade result:", openNewTradeResult);
 
