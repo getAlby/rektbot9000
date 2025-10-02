@@ -19,3 +19,8 @@ yarn install
 yarn build
 yarn start
 ```
+
+### Run dockerfile locally
+
+    $ docker build . -t rektbot-local --progress=plain
+    $ docker run -e OPENROUTER_API_KEY="sk-or-v1-..." rektbot-local

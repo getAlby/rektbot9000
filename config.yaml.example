@@ -1,0 +1,52 @@
+OLLAMA_HOST: localhost
+extensions:
+  alby-http:
+    available_tools: []
+    bundled: null
+    description: null
+    enabled: true
+    env_keys: []
+    envs: {}
+    headers:
+      Authorization: Bearer nostr+walletconnect://XXXXX
+    name: alby-http
+    timeout: 300
+    type: streamable_http
+    uri: https://mcp.getalby.com/mcp
+  lnmarketssse:
+    available_tools: []
+    bundled: null
+    description: null
+    enabled: true
+    env_keys: []
+    envs: {}
+    name: lnmarkets sse
+    timeout: 300
+    type: sse
+    uri: https://sup3r.cool/ln-markets/mcp/sse?apikey=XXXXX
+  memory:
+    available_tools: []
+    bundled: true
+    description: null
+    display_name: Memory
+    enabled: true
+    name: memory
+    timeout: 300
+    type: builtin
+  nostr-mcp-rektbot:
+    args:
+      - -y
+      - nostr-mcp
+    available_tools: []
+    bundled: null
+    cmd: npx
+    description: null
+    enabled: true
+    envs:
+      {
+        NOSTR_NSEC_KEY: "nsecXXXX",
+        NOSTR_RELAYS: "wss://relay.damus.io,wss://relay.primal.net,wss://nos.lol",
+      }
+    name: nostr-mcp-rektbot
+    timeout: 300
+    type: stdio

@@ -77,6 +77,11 @@ async function runGooseAttempt(
         env: {
           ...process.env,
           GOOSE_MODE: "auto",
+          GOOSE_MODEL: "anthropic/claude-sonnet-4",
+          GOOSE_PROVIDER: "openrouter",
+          ...(process.env.OPENROUTER_API_KEY
+            ? { OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY }
+            : {}),
         },
         cwd,
         stdio: ["ignore", "pipe", "pipe"], // Pipe stdout/stderr
