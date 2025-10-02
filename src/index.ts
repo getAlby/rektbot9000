@@ -8,7 +8,7 @@ async function main() {
     console.log("Checking if a trade is open");
     // 1. check if there are any open trades
     const hasCurrentTradeResult = await runGoose(
-      `If I have a LNMarkets trade open, output only yes, otherwise no.`
+      `If I have a LNMarkets trade open, output only "yes", otherwise "no".`
     );
     const hasCurrentTradeText = hasCurrentTradeResult
       .split("\n")
@@ -22,7 +22,8 @@ async function main() {
     }
     if (hasCurrentTradeText !== "no") {
       console.log(
-        "Unknown response when checking for an open trade. Try again later"
+        "Unknown response when checking for an open trade. Try again later",
+        hasCurrentTradeText
       );
       return;
     }
