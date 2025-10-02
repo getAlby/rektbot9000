@@ -8,13 +8,14 @@ async function main() {
     console.log("Checking if a trade is open");
     // 1. check if there are any open trades
     const hasCurrentTradeResult = await runGoose(
-      `If I have a LNMarkets trade open, output only "yes", otherwise "no".`
+      `If I have a LNMarkets trade open, output only EXACTLY "yes", otherwise EXACTLY "no".`
     );
     const hasCurrentTradeText = hasCurrentTradeResult
       .split("\n")
       .filter((l) => l)
       .filter((_, i, a) => i === a.length - 1)[0]
-      ?.trim();
+      ?.trim()
+      .toLowerCase();
 
     if (hasCurrentTradeText === "yes") {
       console.log("I already have an open trade open. Try again later");
@@ -37,7 +38,7 @@ async function main() {
     if (closedTradeResult.includes("Leverage")) {
       console.log("Posting a nostr note about the closed trade");
       const postClosedTradeResult = await runGoose(
-        `Post a Nostr note that your trade has been closed, including in the note the **Entry Price**, **Exit Price**, **Profit/Loss**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**, **Entry Time**, **Exit Time**. (and after the content make a unique optimistic statement that this time you are sure you will win). The raw data to look at for your post is here (DO not post markdown): ${closedTradeResult}`,
+        `Post a Nostr note that your trade has been closed, including in the note the **Entry Price**: XX USD, **Exit Price**: XX USD, **Profit/Loss**: XX sats, **Quantity**: XX USD, **Liquidation**: XX USD, **Side**: LONG|SHORT, **Leverage**: XXx, **Entry Time**: (UTC TIME), **Exit Time**: (UTC TIME). (and after the content make a unique optimistic statement that this time you are sure you will win). The raw data to look at for your post is here (DO not post markdown): ${closedTradeResult}`,
         systemPrompt
       );
       console.log("Post closed trade result:", postClosedTradeResult);
@@ -47,7 +48,7 @@ async function main() {
 
     console.log("Getting wallet balance");
     const balanceResult = await runGoose(
-      "What's my wallet balance? only output the amount in satoshis"
+      `What's my combined lightning wallet and LNMarkets balance? only output the combined amount in this EXACT format: "My balance is 1000 sats"`
     );
     const balanceText = balanceResult
       .split("\n")
@@ -58,7 +59,7 @@ async function main() {
 
     console.log("Posting balance to nostr");
     const postBalanceResult = await runGoose(
-      `Post the following Nostr note: "My balance is ${balanceText} sats"`
+      `Post the following Nostr note: "${balanceText}"`
     );
     console.log("Post balance result:", postBalanceResult);
 
@@ -81,7 +82,8 @@ async function main() {
       .split("\n")
       .filter((l) => l)
       .filter((_, i, a) => i === a.length - 1)[0]
-      ?.trim();
+      ?.trim()
+      .toLowerCase();
 
     if (
       marketSentimentText !== "bullish" &&
@@ -94,7 +96,7 @@ async function main() {
     console.log("Opening a new trade", marketSentimentText, direction);
 
     const openNewTradeResult = await runGoose(
-      `open a 20x ${direction} on LNMarkets with quantity 1 and a stop loss 0.25% lower than the current price and a take profit 0.25% higher than the current price. Make sure to remember the **Position ID** as the LAST_POSITION_ID. In the output, display the following information: **Position ID**, **Entry Price**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**`
+      `open a 50x ${direction} on LNMarkets with quantity 1 and a stop loss 0.1% lower than the current price and a take profit 0.1% higher than the current price. Make sure to remember the **Position ID** as the LAST_POSITION_ID. In the output, display the following information: **Position ID**, **Entry Price**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**`
     );
     console.log("Open new trade result:", openNewTradeResult);
 
@@ -105,7 +107,7 @@ async function main() {
 
     console.log("Posting a nostr note about the new trade");
     const postOpenTradeResult = await runGoose(
-      `Post a Nostr note that you have opened a new trade, including in the note the **Entry Price**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**. (and after the content make a unique optimistic statement that this time you are sure you will win). The raw data to look at for your post is here (DO not post markdown): ${openNewTradeResult}`,
+      `Post a Nostr note that you have opened a new trade, including in the note the **Entry Price**: XX USD, **Quantity**: XX USD, **Liquidation**: XX USD, **Side**: LONG|SHORT, **Leverage**: XX USD. (and after the content make a unique optimistic statement that this time you are sure you will win). The raw data to look at for your post is here (DO not post markdown): ${openNewTradeResult}`,
       systemPrompt
     );
     console.log("Post new open trade result:", postOpenTradeResult);
