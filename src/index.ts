@@ -37,7 +37,7 @@ async function main() {
     if (closedTradeResult.includes("Leverage")) {
       console.log("Posting a nostr note about the closed trade");
       const postClosedTradeResult = await runGoose(
-        `Post a Nostr note that your trade has been closed, including in the note the **Entry Price**, **Exit Price**, **Profit/Loss**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**. (and after the content make a unique optimistic statement that this time you are sure you will win). The raw data to look at for your post is here (DO not post markdown): ${closedTradeResult}`,
+        `Post a Nostr note that your trade has been closed, including in the note the **Entry Price**, **Exit Price**, **Profit/Loss**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**, **Entry Time**, **Exit Time**. (and after the content make a unique optimistic statement that this time you are sure you will win). The raw data to look at for your post is here (DO not post markdown): ${closedTradeResult}`,
         systemPrompt
       );
       console.log("Post closed trade result:", postClosedTradeResult);
