@@ -20,4 +20,4 @@ primary_region = 'fra'
 [[vm]]
   memory = '2gb'
   cpu_kind = 'shared'
-  cpus = 1
+  cpus = 2

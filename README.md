@@ -27,4 +27,4 @@ yarn start
 
 ### Deploy on Fly
 
-`fly deploy --local-only`
+`fly deploy --local-only --ha=false`

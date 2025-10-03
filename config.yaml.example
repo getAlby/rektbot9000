@@ -50,6 +50,6 @@ extensions:
     name: nostr-mcp-rektbot
     timeout: 300
     type: stdio
-GOOSE_MODEL: anthropic/claude-3.7-sonnet
+GOOSE_MODEL: anthropic/claude-sonnet-4
 GOOSE_MODE: auto
 GOOSE_PROVIDER: openrouter
