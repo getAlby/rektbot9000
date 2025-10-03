@@ -1,4 +1,5 @@
 import { runGoose } from "./goose-runner";
+import { shitpostPrompt } from "./shitposts";
 import { systemPrompt } from "./system-prompt";
 import { GooseError } from "./types";
 
@@ -34,6 +35,10 @@ async function step() {
       );
       return;
     }
+
+    console.log("Shitposting");
+    const shitpostResult = await runGoose(shitpostPrompt);
+    console.log("Shitpost result:", shitpostResult);
 
     // check if there is a last trade in the memory
     const closedTradeResult = await runGoose(
