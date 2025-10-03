@@ -2,6 +2,7 @@ import { runGoose } from "./goose-runner";
 import { shitpostPrompt } from "./shitposts";
 import { systemPrompt } from "./system-prompt";
 import { GooseError } from "./types";
+import { exec } from "child_process";
 
 async function main() {
   for (let i = 1; ; i++) {
@@ -12,6 +13,9 @@ async function main() {
 }
 async function step() {
   try {
+    console.log("Killing zombie nostr-mcp processes");
+    exec('pkill -f "nostr-mcp"');
+
     console.log("Checking if a trade is open");
     // 1. check if there are any open trades
     const hasCurrentTradeResult = await runGoose(
