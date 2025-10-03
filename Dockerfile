@@ -36,6 +36,9 @@ COPY --from=builder /app/dist ./dist
 ENV GOOSE_BIN="/root/.local/bin/goose"
 ENV GOOSE_DISABLE_KEYRING=1
 
+# Expose the port the backend listens on
+EXPOSE 3000
+
 # Command to run the server
 CMD yarn start
 #ENTRYPOINT ["/bin/bash", "-c", "tail -f /dev/null"]
