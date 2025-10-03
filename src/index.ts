@@ -4,7 +4,7 @@ import { systemPrompt } from "./system-prompt";
 import { GooseError } from "./types";
 
 async function main() {
-  for (let i = 0; ; i++) {
+  for (let i = 1; ; i++) {
     console.log("Bot loop", i);
     await step();
     await new Promise((resolve) => setTimeout(resolve, 30000));
@@ -99,7 +99,7 @@ async function step() {
       .filter((l) => l)
       .filter((_, i, a) => i === a.length - 1)[0]
       ?.trim()
-      .replace("*", "")
+      .replaceAll("*", "")
       .toLowerCase();
 
     if (
