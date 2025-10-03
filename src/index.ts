@@ -53,12 +53,12 @@ async function step() {
         systemPrompt
       );
       console.log("Post closed trade result:", postClosedTradeResult);
-      // FIXME: it's not posting a kind 0 note
-      /*const setProfileResult = await runGoose(
+
+      const setProfileResult = await runGoose(
         `Change my nostr profile picture metadata to https://rektbot9000.albylabs.com/mood/XX.jpg where XX is 1,2,3,4 according to the trade result profit/loss where 1 is the worst loss and 4 the best profit: ${closedTradeResult}`,
         systemPrompt
       );
-      console.log("Post closed trade result:", setProfileResult);*/
+      console.log("Post closed trade result:", setProfileResult);
     } else {
       console.log("Looks like there was no previous trade saved to my memory");
     }
@@ -82,7 +82,7 @@ async function step() {
 
     console.log("Possibly topping up the LNMarkets balance");
     const topUpLnmarketsResult = await runGoose(
-      `check my LNMarkets balance. If the balance is below 3000 sats, top it up 1000 sats by paying the deposit invoice with my lightning wallet`
+      `check my LNMarkets balance. If the balance is below 5000 sats, top it up 5000 sats by paying the deposit invoice with my lightning wallet`
     );
     console.log("Top up LNMarkets balance result:", topUpLnmarketsResult);
 
@@ -114,7 +114,7 @@ async function step() {
     console.log("Opening a new trade", marketSentimentText, direction);
 
     const openNewTradeResult = await runGoose(
-      `open a 50x ${direction} on LNMarkets with quantity 1 and a stop loss and take profit at 1% distance from the current price. Make sure to remember the **Position ID** as the LAST_POSITION_ID. In the output, display the following information: **Position ID**, **Entry Price**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**`
+      `open a 50x ${direction} on LNMarkets with quantity 5 and a stop loss and take profit at 1% distance from the current price. Make sure to remember the **Position ID** as the LAST_POSITION_ID. In the output, display the following information: **Position ID**, **Entry Price**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**`
     );
     console.log("Open new trade result:", openNewTradeResult);
 

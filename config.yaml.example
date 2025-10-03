@@ -36,7 +36,7 @@ extensions:
   nostr-mcp-rektbot:
     args:
       - -y
-      - nostr-mcp
+      - "@fmar/nostr-mcp"
     available_tools: []
     bundled: null
     cmd: npx
