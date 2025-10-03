@@ -118,7 +118,7 @@ async function step() {
     );
     console.log("Open new trade result:", openNewTradeResult);
 
-    if (openNewTradeResult.indexOf("**Leverage**:") < 0) {
+    if (openNewTradeResult.indexOf("Leverage") < 0) {
       console.error("Failed to open new trade. Please try again");
       return;
     }
