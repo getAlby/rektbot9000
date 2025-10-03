@@ -24,3 +24,7 @@ yarn start
 
     $ docker build . -t rektbot-local --progress=plain
     $ docker run -e OPENROUTER_API_KEY="sk-or-v1-..." rektbot-local
+
+### Deploy on Fly
+
+`fly deploy --local-only`
