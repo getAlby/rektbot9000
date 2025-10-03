@@ -48,6 +48,12 @@ async function step() {
         systemPrompt
       );
       console.log("Post closed trade result:", postClosedTradeResult);
+      const setProfileResult = await runGoose(
+        `Set my nostr profile picture metadata to https://rektbot9000.albylabs.com/mood/XX.jpg where XX is 1,2,3,4 according to the trade result profit/loss where 1 is the worst loss and 4 the best profit: ${closedTradeResult}`,
+        systemPrompt
+      );
+      console.log("Post closed trade result:", postClosedTradeResult);
+
     } else {
       console.log("Looks like there was no previous trade saved to my memory");
     }
