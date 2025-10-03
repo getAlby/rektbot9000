@@ -89,6 +89,7 @@ async function step() {
       .filter((l) => l)
       .filter((_, i, a) => i === a.length - 1)[0]
       ?.trim()
+      .replace("*", "")
       .toLowerCase();
 
     if (
