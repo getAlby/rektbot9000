@@ -80,7 +80,7 @@ async function step() {
 
     console.log("Checking market sentiment");
     const marketSentimentResult = await runGoose(
-      `Look at the LNMarkets trading data for the last 15 minutes and analyze if it is bullish or bearish. Output only "bullish" or "bearish".`
+      `Look at the LNMarkets trading data for the last 15 minutes and analyze if it is bullish or bearish. Output only EXACTLY either "bullish" or "bearish".`
     );
     console.log("Market sentiment result:", marketSentimentResult);
 
