@@ -114,7 +114,7 @@ async function step() {
     console.log("Opening a new trade", marketSentimentText, direction);
 
     const openNewTradeResult = await runGoose(
-      `open a 50x ${direction} on LNMarkets with quantity 1 and a stop loss 0.1% lower than the current price and a take profit 0.1% higher than the current price. Make sure to remember the **Position ID** as the LAST_POSITION_ID. In the output, display the following information: **Position ID**, **Entry Price**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**`
+      `open a 50x ${direction} on LNMarkets with quantity 1 and a stop loss and take profit at 0.1% distance from the current price. Make sure to remember the **Position ID** as the LAST_POSITION_ID. In the output, display the following information: **Position ID**, **Entry Price**, **Quantity (USD)**, **Liquidation**, **Side**, **Leverage**`
     );
     console.log("Open new trade result:", openNewTradeResult);
 
