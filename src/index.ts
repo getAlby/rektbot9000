@@ -2,8 +2,14 @@ import { runGoose } from "./goose-runner";
 import { systemPrompt } from "./system-prompt";
 import { GooseError } from "./types";
 
-// TODO: add loop
 async function main() {
+  for (let i = 0; ; i++) {
+    console.log("Bot loop", i);
+    await step();
+    await new Promise((resolve) => setTimeout(resolve, 30000));
+  }
+}
+async function step() {
   try {
     console.log("Checking if a trade is open");
     // 1. check if there are any open trades
