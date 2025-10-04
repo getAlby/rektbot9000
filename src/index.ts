@@ -63,7 +63,7 @@ async function step() {
       console.log("Post closed trade result:", postClosedTradeResult);
 
       const setProfileResult = await runGoose(
-        `Change my nostr profile picture metadata to https://rektbot9000.albylabs.com/mood/XX.jpg where XX is 1,2,3,4 according to the trade result profit/loss where 1 is the worst loss and 4 the best profit: ${closedTradeResult}`,
+        `Change my nostr profile picture metadata to https://rektbot9000.albylabs.com/mood/X.jpg where X is 1,2,3,4 according to the trade result profit/loss where 1 is the worst loss and 4 the best profit: ${closedTradeResult}`,
         systemPrompt
       );
       console.log("Post closed trade result:", setProfileResult);
