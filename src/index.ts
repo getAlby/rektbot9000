@@ -46,6 +46,8 @@ async function step() {
     const shitpostResult = await runGoose(shitpostPrompt);
     console.log("Shitpost result:", shitpostResult);
 
+    await replyToMentions();
+
     // check if there is a last trade in the memory
     const closedTradeResult = await runGoose(
       `find memory LAST_POSITION_ID. If there is such a memory, lookup the closed trade on LNMarkets by this ID, and then log the details. Once done, forget LAST_POSITION_ID.`
@@ -135,6 +137,26 @@ async function step() {
       systemPrompt
     );
     console.log("Post new open trade result:", postOpenTradeResult);
+  } catch (error) {
+    if (error instanceof GooseError) {
+      console.error("Goose Error:", error.message);
+      console.error("Exit code:", error.exitCode);
+      console.error("Stderr:", error.stderr);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+  }
+}
+
+async function replyToMentions() {
+  try {
+    console.log("Shitposting replies to any mentions 🤖💩");
+
+    const replyAllResult = await runGoose(
+      `Check if there are any unreplied mentions using the getUnrepliedMentions tool. For each unreplied mention, get the latest post of the author mentioning us and roast the hell out of them with gen z brain rot energy using both the content of the mention and their latest post content. Reply to the mention and keep the reply short, a max 2-3 lines.`,
+      systemPrompt
+    );
+    console.log("Reply all result:", replyAllResult);
   } catch (error) {
     if (error instanceof GooseError) {
       console.error("Goose Error:", error.message);
