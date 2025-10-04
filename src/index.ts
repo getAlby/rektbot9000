@@ -21,7 +21,7 @@ async function step() {
     console.log("Checking if a trade is open");
     // 1. check if there are any open trades
     const hasCurrentTradeResult = await runGoose(
-      `If I have a LNMarkets trade open, output only EXACTLY "yes", otherwise EXACTLY "no".`
+      `If I have a LNMarkets trade open, remember the trade's position ID as LAST_POSITION_ID, then output EXACTLY "yes". Otherwise, output EXACTLY "no".`
     );
     const hasCurrentTradeText = hasCurrentTradeResult
       .split("\n")
