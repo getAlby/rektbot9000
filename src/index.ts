@@ -9,7 +9,7 @@ async function main() {
     console.log("Bot loop", i);
     await step();
     //const sleepTime = 30 * 1000; // 30s
-    const sleepTime = 60 * 60 * 1000; // once per 10 minutes
+    const sleepTime = 4 * 60 * 60 * 1000; // once per 4 hours
     await new Promise((resolve) => setTimeout(resolve, sleepTime));
   }
 }
